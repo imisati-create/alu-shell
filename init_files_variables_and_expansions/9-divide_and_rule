@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ "$DIVIDE" -eq 0 ]; then
+	echo "$DIVIDE"
+else
+	echo "$((POWER / DIVIDE))"
+fi

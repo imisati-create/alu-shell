@@ -1,0 +1,47 @@
+#!/usr/bin/python3
+import os
+
+
+def digits(baseword):
+    """Return the ordered list of unique characters in baseword.
+    The position of a character in this list is its digit value."""
+    seen = []
+    for c in baseword:
+        if c not in seen:
+            seen.append(c)
+    return seen
+
+
+def decode(value, base_digits):
+    """Decode `value` (a string written in the custom base defined by
+    base_digits) into a regular integer."""
+    base = len(base_digits)
+    result = 0
+    for c in value:
+        result = result * base + base_digits.index(c)
+    return result
+
+
+def encode(number, base_digits):
+    """Encode integer `number` into the custom base defined by
+    base_digits, returning a string."""
+    base = len(base_digits)
+    if number == 0:
+        return base_digits[0]
+    out = []
+    while number > 0:
+        out.append(base_digits[number % base])
+        number //= base
+    return "".join(reversed(out))
+
+
+water_digits = digits("water")
+stir_digits = digits("stir")
+result_digits = digits("bestchol")
+
+water_value = decode(os.environ.get("WATER", ""), water_digits)
+stir_value = decode(os.environ.get("STIR", ""), stir_digits)
+
+total = water_value + stir_value
+
+print(encode(total, result_digits))
