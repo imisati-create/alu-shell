@@ -1,5 +1,2 @@
 #!/bin/bash
-find . -type f -name "*.gif" -printf "%f\n" | while read -r name
-do
-	echo "${name%.gif}"
-done | sort -f
+find . -type f -name "*.gif" -printf "%f\n" | rev | cut -c5- | rev | sort -f
